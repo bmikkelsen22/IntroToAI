@@ -27,6 +27,26 @@ class Game:
             return False
         return True
 
+    def __eq__(self, other):
+        if self.left.wolves != other.left.wolves:
+            return False
+        if self.left.chickens != other.left.chickens:
+            return False
+        if self.left.boat != other.left.boat:
+            return False
+        if self.right.wolves != other.right.wolves:
+            return False
+        if self.right.chickens != other.right.chickens:
+            return False
+        if self.right.boat != other.right.boat:
+            return False
+        return True
+    
+    def __ne__(self, other):
+        return not (self == other)
+        
+        
+
 def moveChicken(g):
     if g.left.boat: #boat starts out on left side
         return Game(g.left.wolves, g.left.chickens - 1, False, g.right.wolves, g.right.chickens + 1, True)
