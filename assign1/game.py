@@ -43,8 +43,16 @@ def moveWolf(g):
     if g.left.boat: #boat starts out on left side
         return Game(g.left.wolves - 1, g.left.chickens, False, g.right.wolves + 1, g.right.chickens, True)
     else: #boat starts out on right side
-        return Game(g.left.wolves + 1, g.left.chickens, False, g.right.wolves - 1, g.right.chickens, True)
+        return Game(g.left.wolves + 1, g.left.chickens, True, g.right.wolves - 1, g.right.chickens, False)
 
 def moveWolfAndChicken(g):
+    if g.left.boat: #boat starts out on left side
+        return Game(g.left.wolves - 1, g.left.chickens - 1, False, g.right.wolves + 1, g.right.chickens + 1, True)
+    else: #boat starts out on right side
+        return Game(g.left.wolves + 1, g.left.chickens + 1, True, g.right.wolves - 1, g.right.chickens - 1, False)
 
-    
+def moveTwoWolves(g):
+    if g.left.boat: #boat starts out on left side
+        return Game(g.left.wolves - 2, g.left.chickens, False, g.right.wolves + 2, g.right.chickens, True)
+    else: #boat starts out on right side
+        return Game(g.left.wolves + 2, g.left.chickens, True, g.right.wolves - 2, g.right.chickens, False)
