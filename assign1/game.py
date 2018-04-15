@@ -42,8 +42,12 @@ class Game:
             return False
         return True
     
-    def __ne__(self, other):
-        return not (self == other)
+    def __hash__(self):
+        h = self.left.wolves * 10 + self.left.chickens * 1000
+        h += self.right.wolves * 100000 + self.right.chickens * 10000000
+        if self.left.boat:
+            h += 1
+        return h
         
         
 
