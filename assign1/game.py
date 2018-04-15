@@ -49,6 +49,13 @@ class Game:
         if self.left.boat:
             h += 1
         return h
+
+    def __str__(self):
+        leftBoat = "boat" if self.left.boat else "no boat"
+        rightBoat = "boat" if self.right.boat else "no boat"
+        predString = str(self.pred) if self.pred else ""
+
+        return "%s%d wolves, %d chickens, %s | %d wolves, %d chickens, %s\n" % (predString, self.left.wolves, self.left.chickens, leftBoat, self.right.wolves, self.right.chickens, rightBoat)
         
         
 
