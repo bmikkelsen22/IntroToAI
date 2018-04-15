@@ -4,9 +4,9 @@ import game
 from collections import deque
 
 def bfs(initial_state, goal_state):
-		print("Breathd first") 		
 		frontier = deque()
 		explored = {}
+		node_count = 0
 
 		frontier.append(initial_state) 
 
@@ -16,33 +16,35 @@ def bfs(initial_state, goal_state):
 				else:
 						current_state = frontier.popleft()
 						if current_state == goal_state:
+								print("Node count is: " + str(node_count)) 
 								return current_state
 						else:
+								node_count += 1
 								explored[current_state] = True
 								
-								one_chicken = moveChicken(current_state)
+								one_chicken = game.moveChicken(current_state)
 								if one_chicken.ok() == True:
-										if not explored[one_chicken] and one_chicken not in frontier:
+										if one_chicken not in explored and one_chicken not in frontier:
 												frontier.append(one_chicken)
 								
-								two_chicken = moveTwoChickens(current_state)
+								two_chicken = game.moveTwoChickens(current_state)
 								if two_chicken.ok() == True:
-										if not explored[two_chicken] and two_chicken not in frontier:
+										if two_chicken not in explored and two_chicken not in frontier:
 												frontier.append(two_chicken)
 
-								one_wolf = moveWolf(current_state)
+								one_wolf = game.moveWolf(current_state)
 								if one_wolf.ok() == True:
-										if not explored[one_wolf] and one_wolf not in frontier:
+										if one_wolf not in explored and one_wolf not in frontier:
 											frontier.append(one_wolf)
 
-								wolf_and_chicken = moveWolfAndChicken(current_state)
+								wolf_and_chicken = game.moveWolfAndChicken(current_state)
 								if wolf_and_chicken.ok():
-										if not explored[wolf_and_chicken] and wolf_and_chicken not in frontier:
+										if wolf_and_chicken not in explored and wolf_and_chicken not in frontier:
 											frontier.append(wolf_and_chicken)
 
-								two_wolves = moveTwoWolves(current_state)
+								two_wolves = game.moveTwoWolves(current_state)
 								if two_wolves.ok():
-										if not explored[two_wolves] and two_wolves not in frontier:
+										if two_wolves not in explored and two_wolves not in frontier:
 											frontier.append(two_wolves)
 
 
@@ -90,6 +92,8 @@ def main():
 				
 				if mode == 'bfs':
 						solution = bfs(initial_state, goal_state)
-						print(solution) 
+						print(solution.left.wolves) 
+						print(solution.left.chickens)
+						print(solution.left.boat) 
 main() 
 
