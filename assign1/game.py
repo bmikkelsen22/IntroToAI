@@ -5,9 +5,10 @@ class Shore:
 
 class Game: 
     # lBoat and rBoat are booleans, others are ints
-    def __init__(self, lWolves, lChickens, lBoat, rWolves, rChickens, rBoat):
+    def __init__(self, lWolves, lChickens, lBoat, rWolves, rChickens, rBoat, pred = None):
         self.left = Shore()
         self.right = Shore()
+        self.pred = pred
 
         self.left.wolves = lWolves
         self.left.chickens = lChickens
@@ -53,30 +54,30 @@ class Game:
 
 def moveChicken(g):
     if g.left.boat: #boat starts out on left side
-        return Game(g.left.wolves, g.left.chickens - 1, False, g.right.wolves, g.right.chickens + 1, True)
+        return Game(g.left.wolves, g.left.chickens - 1, False, g.right.wolves, g.right.chickens + 1, True, g)
     else: #boat starts out on right side
-        return Game(g.left.wolves, g.left.chickens + 1, True, g.right.wolves, g.right.chickens - 1, False)
+        return Game(g.left.wolves, g.left.chickens + 1, True, g.right.wolves, g.right.chickens - 1, False, g)
 
 def moveTwoChickens(g):
     if g.left.boat: #boat starts out on left side
-        return Game(g.left.wolves, g.left.chickens - 2, False, g.right.wolves, g.right.chickens + 2, True)
+        return Game(g.left.wolves, g.left.chickens - 2, False, g.right.wolves, g.right.chickens + 2, True, g)
     else: #boat starts out on right side
-        return Game(g.left.wolves, g.left.chickens + 2, True, g.right.wolves, g.right.chickens - 2, False)
+        return Game(g.left.wolves, g.left.chickens + 2, True, g.right.wolves, g.right.chickens - 2, False, g)
 
 def moveWolf(g):
     if g.left.boat: #boat starts out on left side
-        return Game(g.left.wolves - 1, g.left.chickens, False, g.right.wolves + 1, g.right.chickens, True)
+        return Game(g.left.wolves - 1, g.left.chickens, False, g.right.wolves + 1, g.right.chickens, True, g)
     else: #boat starts out on right side
-        return Game(g.left.wolves + 1, g.left.chickens, True, g.right.wolves - 1, g.right.chickens, False)
+        return Game(g.left.wolves + 1, g.left.chickens, True, g.right.wolves - 1, g.right.chickens, False, g)
 
 def moveWolfAndChicken(g):
     if g.left.boat: #boat starts out on left side
-        return Game(g.left.wolves - 1, g.left.chickens - 1, False, g.right.wolves + 1, g.right.chickens + 1, True)
+        return Game(g.left.wolves - 1, g.left.chickens - 1, False, g.right.wolves + 1, g.right.chickens + 1, True, g)
     else: #boat starts out on right side
-        return Game(g.left.wolves + 1, g.left.chickens + 1, True, g.right.wolves - 1, g.right.chickens - 1, False)
+        return Game(g.left.wolves + 1, g.left.chickens + 1, True, g.right.wolves - 1, g.right.chickens - 1, False, g)
 
 def moveTwoWolves(g):
     if g.left.boat: #boat starts out on left side
-        return Game(g.left.wolves - 2, g.left.chickens, False, g.right.wolves + 2, g.right.chickens, True)
+        return Game(g.left.wolves - 2, g.left.chickens, False, g.right.wolves + 2, g.right.chickens, True, g)
     else: #boat starts out on right side
-        return Game(g.left.wolves + 2, g.left.chickens, True, g.right.wolves - 2, g.right.chickens, False)
+        return Game(g.left.wolves + 2, g.left.chickens, True, g.right.wolves - 2, g.right.chickens, False, g)
