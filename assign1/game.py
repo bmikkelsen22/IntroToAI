@@ -17,13 +17,13 @@ class Game:
         self.right.boat = rBoat
     
     def ok(self):
-        if self.left.chickens < self.left.wolves && self.left.chickens > 0:
+        if self.left.chickens < self.left.wolves and self.left.chickens > 0:
             return False
-        if self.right.chickens < self.right.wolves && self.right.chickens > 0:
+        if self.right.chickens < self.right.wolves and self.right.chickens > 0:
             return False
-        if self.left.chickens < 0 || self.left.wolves < 0:
+        if self.left.chickens < 0 or self.left.wolves < 0:
             return False
-        if self.right.chickens < 0 || self.right.wolves < 0:
+        if self.right.chickens < 0 or self.right.wolves < 0:
             return False
         return True
 

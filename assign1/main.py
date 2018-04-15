@@ -1,8 +1,6 @@
 import sys
 import os.path
 
-#print("sup")
-
 def main():
 
 		if len(sys.argv) != 5:
