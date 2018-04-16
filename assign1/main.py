@@ -92,8 +92,6 @@ def main():
 				
 				if mode == 'bfs':
 						solution = bfs(initial_state, goal_state)
-						print(solution.left.wolves) 
-						print(solution.left.chickens)
-						print(solution.left.boat) 
+						print(solution) 
 main() 
 
