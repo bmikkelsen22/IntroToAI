@@ -3,6 +3,54 @@ import os.path
 import game
 from collections import deque
 
+def iddfs(initial_state, goal_state):
+		frontier = deque()
+		explored = {}
+		node_count = 0
+		max_depth = 1
+		
+		depth = 0
+		frontier.append(initial_state) 
+
+		while True:
+				if not frontier:
+						return False
+				else:
+						current_state = frontier.pop()
+						if current_state == goal_state:
+								print("Node count is: " + str(node_count)) 
+								return current_state
+						else:
+								node_count += 1
+								explored[current_state] = True
+								
+								one_chicken = game.moveChicken(current_state)
+								if one_chicken.ok() == True:
+										if one_chicken not in explored and one_chicken not in frontier:
+												frontier.append(one_chicken)
+								
+								two_chicken = game.moveTwoChickens(current_state)
+								if two_chicken.ok() == True:
+										if two_chicken not in explored and two_chicken not in frontier:
+												frontier.append(two_chicken)
+
+								one_wolf = game.moveWolf(current_state)
+								if one_wolf.ok() == True:
+										if one_wolf not in explored and one_wolf not in frontier:
+											frontier.append(one_wolf)
+
+								wolf_and_chicken = game.moveWolfAndChicken(current_state)
+								if wolf_and_chicken.ok():
+										if wolf_and_chicken not in explored and wolf_and_chicken not in frontier:
+											frontier.append(wolf_and_chicken)
+
+								two_wolves = game.moveTwoWolves(current_state)
+								if two_wolves.ok():
+										if two_wolves not in explored and two_wolves not in frontier:
+											frontier.append(two_wolves)
+
+
+
 def dfs(initial_state, goal_state):
 		frontier = deque()
 		explored = {}
