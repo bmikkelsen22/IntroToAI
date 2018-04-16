@@ -9,6 +9,7 @@ class Game:
         self.left = Shore()
         self.right = Shore()
         self.pred = pred
+        self.depth = pred.depth + 1 if pred else 0
 
         self.left.wolves = lWolves
         self.left.chickens = lChickens
