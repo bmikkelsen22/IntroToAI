@@ -65,11 +65,10 @@ class Game:
         return h
 
     def __str__(self):
-        leftBoat = "boat" if self.left.boat else "no boat"
-        rightBoat = "boat" if self.right.boat else "no boat"
-        predString = str(self.pred) if self.pred else ""
+        leftBoat = "1" if self.left.boat else "0"
+        rightBoat = "1" if self.right.boat else "0"
 
-        return "%s%d wolves, %d chickens, %s | %d wolves, %d chickens, %s\n" % (predString, self.left.wolves, self.left.chickens, leftBoat, self.right.wolves, self.right.chickens, rightBoat)
+        return "%d %d %s, %d %d %s" % (self.left.wolves, self.left.chickens, leftBoat, self.right.wolves, self.right.chickens, rightBoat)
 
 
 def moveChicken(g):

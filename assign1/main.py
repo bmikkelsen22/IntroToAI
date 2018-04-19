@@ -18,7 +18,7 @@ def iddfs(initial_state, goal_state):
 		while frontier:
 			current_state = frontier.pop()
 			if current_state == goal_state:
-				print("Node count is: " + str(node_count)) 
+				print("nodes expanded: " + str(node_count)) 
 				return current_state
 			else:
 				if current_state.depth >= max_depth:
@@ -63,11 +63,12 @@ def dfs(initial_state, goal_state):
 
 		while True:
 				if not frontier:
-						return False
+						print("nodes expanded: " + str(node_count))
+						return None
 				else:
 						current_state = frontier.pop()
 						if current_state == goal_state:
-								print("Node count is: " + str(node_count)) 
+								print("nodes expanded: " + str(node_count)) 
 								return current_state
 						else:
 								node_count += 1
@@ -109,11 +110,12 @@ def astar(initial_state, goal_state):
 
 		while True:
 				if frontier.empty():
-						return False
+						print("nodes expanded: " + str(node_count))
+						return None
 				else:
 						current_state = frontier.get()
 						if current_state == goal_state:
-								print("Node count is: " + str(node_count)) 
+								print("nodes expanded: " + str(node_count)) 
 								return current_state
 						else:
 								node_count += 1
@@ -160,11 +162,12 @@ def bfs(initial_state, goal_state):
 
 		while True:
 				if not frontier:
-						return False
+						print("nodes expanded: " + str(node_count)) 
+						return None
 				else:
 						current_state = frontier.popleft()
 						if current_state == goal_state:
-								print("Node count is: " + str(node_count)) 
+								print("nodes expanded: " + str(node_count)) 
 								return current_state
 						else:
 								node_count += 1
@@ -195,8 +198,19 @@ def bfs(initial_state, goal_state):
 										if two_wolves not in explored and two_wolves not in frontier:
 											frontier.append(two_wolves)
 
+def printSoln(solution):
+	i = 0
+	curr = solution
+	solnString = ""
+	while curr.pred:
+		i += 1
+		solnString = str(curr) + "\n" + solnString
+		curr = curr.pred
+	solnString = str(curr) + "\n" + solnString
 
-
+	print("nodes in solution: %d" % i)
+	print(solnString)
+	return solnString
 
 def main():
 
@@ -246,7 +260,11 @@ def main():
 					solution = iddfs(initial_state, goal_state)
 				elif mode == 'astar':
 					solution = astar(initial_state, goal_state)
-				print(solution)
-				output_file.write(str(solution)) 
+				
+				if solution:
+					solnString = printSoln(solution)
+					output_file.write(solnString)
+				else:
+					print("no solution")
 main() 
 
