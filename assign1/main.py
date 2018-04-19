@@ -2,6 +2,7 @@ import sys
 import os.path
 import game
 from collections import deque
+from queue import PriorityQueue
 
 def iddfs(initial_state, goal_state):
 	node_count = 0
@@ -98,6 +99,57 @@ def dfs(initial_state, goal_state):
 											frontier.append(two_wolves)
 
 
+def astar(initial_state, goal_state):
+		frontier = PriorityQueue()
+		explored = {}
+		node_count = 0
+
+		initial_state.heuristic(goal_state)
+		frontier.put(initial_state) 
+
+		while True:
+				if frontier.empty():
+						return False
+				else:
+						current_state = frontier.get()
+						if current_state == goal_state:
+								print("Node count is: " + str(node_count)) 
+								return current_state
+						else:
+								node_count += 1
+								explored[current_state] = True
+								
+								one_chicken = game.moveChicken(current_state)
+								if one_chicken.ok() == True:
+										if one_chicken not in explored and one_chicken not in frontier.queue:
+												one_chicken.heuristic(goal_state)
+												frontier.put(one_chicken)
+								
+								two_chicken = game.moveTwoChickens(current_state)
+								if two_chicken.ok() == True:
+										if two_chicken not in explored and two_chicken not in frontier.queue:
+												two_chicken.heuristic(goal_state)
+												frontier.put(two_chicken)
+
+								one_wolf = game.moveWolf(current_state)
+								if one_wolf.ok() == True:
+										if one_wolf not in explored and one_wolf not in frontier.queue:
+												one_wolf.heuristic(goal_state)
+												frontier.put(one_wolf)
+
+								wolf_and_chicken = game.moveWolfAndChicken(current_state)
+								if wolf_and_chicken.ok():
+										if wolf_and_chicken not in explored and wolf_and_chicken not in frontier.queue:
+												wolf_and_chicken.heuristic(goal_state)
+												frontier.put(wolf_and_chicken)
+
+								two_wolves = game.moveTwoWolves(current_state)
+								if two_wolves.ok():
+										if two_wolves not in explored and two_wolves not in frontier.queue:
+												two_wolves.heuristic(goal_state)
+												frontier.put(two_wolves)
+
+
 
 def bfs(initial_state, goal_state):
 		frontier = deque()
@@ -189,9 +241,11 @@ def main():
 				if mode == 'bfs':
 						solution = bfs(initial_state, goal_state)
 				elif mode == 'dfs':
-						solution = dfs(initial_state, goal_state) 
+						solution = dfs(initial_state, goal_state)
 				elif mode == 'iddfs':
 					solution = iddfs(initial_state, goal_state)
+				elif mode == 'astar':
+					solution = astar(initial_state, goal_state)
 				print(solution)
 				output_file.write(str(solution)) 
 main() 

@@ -29,6 +29,13 @@ class Game:
             return False
         return True
 
+    def heuristic(self, goal):
+        h = abs(goal.left.wolves - self.left.wolves) + abs(goal.left.chickens - self.left.chickens) 
+        if goal.left.boat and not self.left.boat:
+            h = h + 1
+        self.h = h
+        return h
+
     def __eq__(self, other):
         if self.left.wolves != other.left.wolves:
             return False
@@ -43,6 +50,12 @@ class Game:
         if self.right.boat != other.right.boat:
             return False
         return True
+
+    def __lt__(self, other):
+        return self.h < other.h
+
+    def __gt__(self, other):
+        return self.h > other.h
     
     def __hash__(self):
         h = self.left.wolves * 10 + self.left.chickens * 1000
@@ -57,8 +70,7 @@ class Game:
         predString = str(self.pred) if self.pred else ""
 
         return "%s%d wolves, %d chickens, %s | %d wolves, %d chickens, %s\n" % (predString, self.left.wolves, self.left.chickens, leftBoat, self.right.wolves, self.right.chickens, rightBoat)
-        
-        
+
 
 def moveChicken(g):
     if g.left.boat: #boat starts out on left side
