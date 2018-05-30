@@ -7,12 +7,12 @@ def main():
   file = open("trainingSet.txt", "r")
   trainingSet = file.read()
   trainingSetLines = trainingSet.split("\n")
-
-
+  for line in trainingSetLines:
+    parseLine(line)
 
 def parseLine(line):
   lineArray = line.split("\t")
-  review = Review(lineArray[0], lineArray[1]);
-  
+  review = Review(lineArray[0], lineArray[1])
+  return review
 
 main()
