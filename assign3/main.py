@@ -6,6 +6,7 @@ class Review():
 def main():
   file = open("trainingSet.txt", "r")
   trainingSet = file.read()
+  out = s.translate(string.maketrans("",""), string.punctuation)
   trainingSetLines = trainingSet.split("\n")
 
 
