@@ -11,6 +11,12 @@ class Review():
 		  for x in trainingDict.len():
 				  words[x] = 0
 
+		  i = 0
+		  for key, value in trainingDict.items():
+				  for word in sentence.split():
+						  if key == word:
+								  words[i] = 1
+
 
 def main():
   file = open("trainingSet.txt", "r")
@@ -38,7 +44,7 @@ def main():
 
 def parseLine(line):
   lineArray = line.split("\t")
-  review = Review(lineArray[0], lineArray[1]);
+  review = Review(lineArray[0], int(lineArray[1]));
   return review
 
 main()
